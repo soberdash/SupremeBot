@@ -1,10 +1,17 @@
+[discord-invite]: https://discord.gg/r4jMCVD
+[discord-shield]: https://img.shields.io/discord/599478011926020116?color=blue&label=Discord&logo=Discord&logoColor=white
+[![Status](https://top.gg/api/widget/status/676258423620370443.svg)](https://top.gg/bot/676258423620370443)
+[ ![discord-shield][] ][discord-invite]
+[![Servers](https://top.gg/api/widget/servers/676258423620370443.svg)](https://top.gg/bot/676258423620370443)
+[![Lib](https://top.gg/api/widget/lib/676258423620370443.svg)](https://top.gg/bot/676258423620370443)
+
 # SupremeBot
 
 ## Información
 
 SupremeBot es un bot de Moderación, Utilidades, Leveling y mucho más que es perfecto para tu servidor!
 
-##Características
+## Características
 
 - Sistema de Moderación
 - Almacenamiento de Sanciones mediante bases de datos
