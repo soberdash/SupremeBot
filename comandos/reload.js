@@ -8,7 +8,7 @@ module.exports = async (client, message, args) => {
       const exec = require('child_process').execSync
         console.log(`Reinicio completo`)
         message.channel.send('<a:ani_yes:709633371122434050> Reiniciando procesos. En línea en unos momentos.').then(() => {
-        exec('pm2 reload 0');
+        exec('pm2 reload 0 --force');
       })                                 
     }else{
       const argsName = args[0]
