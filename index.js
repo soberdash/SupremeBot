@@ -27,7 +27,7 @@ for(const file of readdirSync('./eventos')){
 
 client.login(config.token)
     .then(() => {
-        console.log(`${client.user.tag} ha iniciado correctamente.`);
+        console.log(`${client.user.tag} se ha conectado a Discord correctamente!.`);
     })
     .catch((err) => {
         console.error('Error al iniciar sesión: '+err);
