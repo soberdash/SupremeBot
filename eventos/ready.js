@@ -1,11 +1,8 @@
 const Discord = require("discord.js");
 const client = new Discord.Client();
 const config = require('/home/jeffrey/sb/config.json')
-const mongoose = require('mongoose')
-mongoose.connect(config.connect, (err) => {
-  if(err) return console.error(err)
-  console.log('SupremeBot se ha conectado correctamente a la base de datos MongoDB!')
-})
+const prefixSchema = require('/home/jeffrey/sb/models/prefix.js')
+
 module.exports = async (client, message) => {
   const actividades = [
     ">vote",
@@ -20,11 +17,26 @@ module.exports = async (client, message) => {
     const index = Math.floor(Math.random() * (actividades.length - 1) + 1);
     const estado = actividades[index]
     client.user.setPresence({
-      status: 'dnd',
+      status: 'online',
       activity: {
         name: estado,
         type: 'WATCHING'
       },
     });
   }, 20000);
+
+  await client.guilds.cache.keyArray().forEach(id => {
+    prefixSchema.findOne({
+      guildID: id
+    }, (err, guild) => {
+      if(err) console.error(err)
+      if(!guild){
+        const newschema = new prefixSchema({
+          guildID: id,
+          prefix: '>'
+        })
+        return newschema.save()
+      }
+    });
+  })
 }
