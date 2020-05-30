@@ -9,7 +9,7 @@
 
 ## Información
 
-SupremeBot es un bot de Moderación, Utilidades, Leveling y mucho más que es perfecto para tu servidor!
+SupremeBot es un bot de Moderación, Utilidades, Leveling y mucho más que lo hace perfecto para tu servidor!
 
 ## Características
 
@@ -26,7 +26,7 @@ Si deseas reportar un bug, puedes hacerlo mediante nuestro [Discord de Soporte](
 
 ## Donación
 
-Puedes apoyar nuestro proyecto mediante donativos que serán destinados para el mismo. Actualmente solo recibimos donativos por [Paypal](https://paypal.me/supremebt)
+Puedes apoyar nuestro proyecto mediante donativos que serán destinados para el mismo. Actualmente solo recibimos donativos por [Paypal](https://paypal.me/supremebt).
 Para más información sobre los beneficios que obtienes al donar, ejecuta el comando *donate* en tu servidor.
 
 ## Invitación
