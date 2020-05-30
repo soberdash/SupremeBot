@@ -11,6 +11,7 @@ module.exports = (client, message) => {
       message.channel.send('<:supreme:690641733641306223> Mi prefix en el servidor ``'+message.guild.name+'`` es: ``'+prefix+'``')}
     if (!message.content.startsWith(prefix)) return
     if (message.author.bot) return
+    if(message.content.startsWith(prefix+' ')) return 
     const args = message.content.slice(prefix.length).trim().split(/ +/g);
     const command = args.shift().toLowerCase();
     if (command.length === 0) return;
