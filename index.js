@@ -3,37 +3,39 @@ const client = new Discord.Client();
 const config = require('./config.json')
 const mongoose = require('mongoose')
 const uri = config.connect
+const DBL = require('dblapi.js')
+const dbl = new DBL(config.dbl, client);
 
 let fs = require('fs');
 
 client.comandos = new Discord.Collection();
 
-fs.readdir(__dirname + "/comandos", (err, files) => {
+fs.readdir(__dirname + "/commands", (err, files) => {
     if (err) console.error(err);
 
     let jsfiles = files.filter(f => f.split(".").pop() === "js");
     if (jsfiles.length <= 0) {
-        return console.log("Sin comandos.");
+        console.log("Directorio sin Comandos");
+        return;
     }
 
-    console.log(`${jsfiles.length} comandos!`);
+    console.log(`Cargando ${jsfiles.length} comandos!`);
+
+    jsfiles.forEach((f, i) => {
+        let fileName = f.substring(0, f.length -3);
+        let fileContents = require(`./commands/${f}`);
+        console.log(`${f} listo!`);
+        client.comandos.set(fileName, fileContents);
+        delete require.cache[require.resolve(`./commands/${fileName}.js`)];
+    });
 });
 
-
-for(const file of fs.readdirSync('./comandos/')){
-   if(file.endsWith(".js")){
-   let fileName = file.substring(0, file.length -3);
-   let fileContents = require(`./comandos/${file}`);
-   client.comandos.set(fileName, fileContents);
-   delete require.cache[require.resolve(`./comandos/${fileName}.js`)];
-   }
-}
-for(const file of fs.readdirSync('./eventos')){
+for(const file of fs.readdirSync('./events')){
   if(file.endsWith(".js")){
   let fileName = file.substring(0, file.length -3);
-  let fileContents = require(`./eventos/${file}`);
+  let fileContents = require(`./events/${file}`);
   client.on(fileName, fileContents.bind(null, client));
-  delete require.cache[require.resolve(`./eventos/${file}`)];
+  delete require.cache[require.resolve(`./events/${file}`)];
   }
 }
 
@@ -58,4 +60,10 @@ client.login(config.token)
     .catch((err) => {
         console.error('Error al iniciar sesión: '+err);
     });
+dbl.on('posted', () => {
+  console.log('Listo! (DBL)');
+})
 
+dbl.on('error', e => {
+ console.log(`Ha ocurrido un error! ${e}`);
+})

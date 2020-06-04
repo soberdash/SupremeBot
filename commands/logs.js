@@ -3,6 +3,7 @@ module.exports = async (client, message, args, prefix) => {
     const Discord = require('discord.js')
     const logsSchema = require('../models/logs.js')
     const perms = message.member.permissions.has('MANAGE_GUILD')
+    if(!perms) return message.channel.send('<a:ani_no:709633289106882590> No tienes permisos para realizar esta acción. Requerido: ``MANAGE_GUILD``')
     if(!args[0]){
         logsSchema.findOne({
             guildID: message.guild.id
@@ -42,17 +43,31 @@ module.exports = async (client, message, args, prefix) => {
                 return newlogs.save().then(() => {
                     message.channel.send(`<a:ani_yes:709633371122434050> Listo! El canal de logs ha sido establecido a ${ch}.`)
                 }).catch((err) => {
-                    message.channel.send('<a:ani_no:709633289106882590> Ha ocurrido un error! ('+err+')')
+                    message.channel.send('<a:ani_no:709633289106882590> Ha ocurrido un error inesperado!')
                 })
             }else{
                 const nw = await logsSchema.findOneAndUpdate({ guildID: message.guild.id }, { $set: { channelID: ch.id } }, { new: true }).then(() => {
                     message.channel.send(`<a:ani_yes:709633371122434050> Listo! El nuevo canal de logs es ${ch}`)
                 }).catch((err) => {
-                    message.channel.send('<a:ani_no:709633289106882590> Ha ocurrido un error! ('+err+')')
+                    message.channel.send('<a:ani_no:709633289106882590> Ha ocurrido un error inesperado!')
+                    console.error(err)
                 })
             }
         })
     }else if(args[0] === 'unset'){
-        
+        logsSchema.findOne({
+            guildID: message.guild.id
+        }, (err, guild) => {
+            if(err) console.error(err)
+            if(!guild) return message.channel.send('<a:ani_no:709633289106882590> No puedo remover datos inexistentes')
+            else{
+                logsSchema.findOneAndRemove({ guildID: message.guild.id}).then(() => {
+                    message.channel.send('<a:ani_yes:709633371122434050> He eliminado los datos para este servidor!')
+                }).catch((err) => {
+                    message.channel.send('<a:ani_no:709633289106882590> Ha ocurrido un error inesperado!')
+                    console.error(err)
+                })
+            }
+        })
     }
 }
