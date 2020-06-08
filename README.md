@@ -23,6 +23,7 @@ SupremeBot es un bot de Moderación, Utilidades, Leveling y mucho más que lo ha
 ## Bugs
 
 Si deseas reportar un bug, puedes hacerlo mediante nuestro [Discord de Soporte](https://discord.gg/r4jMCVD), o bien en este repositorio crear una *Issue*
+IMPORTANTE: BUGS DE SEGURIDAD DEBEN SER INFORMADOS DIRECTAMENTE A LOS ADMINISTRADORES. (Jeffrey#3717, Matías G.#2222)
 
 ## Donación
 
