@@ -12,9 +12,12 @@ let fs = require("fs");
 client.commands = new Discord.Collection();
 
 fs.readdir(__dirname + "/commands", (err, files) => {
-    if(err) return console.error(err);
+    if(err) {
+        console.error(err)
+        return;
+    }
 
-    let jsfiles = files.filter(f => f.split(".").pop() === "js");
+    let jsfiles = files.filter((f) => f.split(".").pop() === "js");
     if(jsfiles.length < 0) {
         console.log("Sin comandos")
         return;
@@ -49,7 +52,8 @@ mongoose.connect(uri, {
 }, async(err) => {
     if(err) {
         console.error(`Ha ocurrido un error al conectar a la base de datos. (${err})`)
-        process.exit(1);
+        process.exit(1)
+        return;
     }
     console.log(`${client.user.tag} se ha conectado a la base de datos correctamente.`);
 });
