@@ -8,14 +8,13 @@ module.exports = (client) => {
     ];
 
     let displayArg = Math.floor(((Math.random() * display.length) + 1) - 1);
-    let final = display[displayArg]
 
     setInterval(() => {
         client.user.setPresence(
             {
                 status: "online",
                 activity: {
-                    name: numberArg,
+                    name: display[parseInt[displayArg]],
                     type: "WATCHING"
                 }
             }
