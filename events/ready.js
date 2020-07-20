@@ -43,7 +43,7 @@ module.exports = async (client) => {
                 return newGuildSchema.save();
             }
         });
-    })
+    });
 
     require("snekfetch").post("https://thlist.glitch.me/api/stats/bot/676258423620370443")
         .send({ serverCount: client.guilds.cache.size, authorization: "XA-5vPfRMfGMZby"})
