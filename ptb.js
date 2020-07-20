@@ -12,7 +12,7 @@ let fs = require("fs");
 
 client.commands = new Discord.Collection();
 
-fs.readdir(__dirname + "/commands", (err, files) => {
+fs.readdirSync(__dirname + "/commands", (err, files) => {
     if(err) {
         Console.error(err);
         return;
@@ -28,7 +28,7 @@ fs.readdir(__dirname + "/commands", (err, files) => {
 
     jsfiles.forEach((f, i) => {
         let fileName = f.substring(0, f.length - 3);
-        let fileContents = require(`./commands/${f}`);
+        let fileContents = require("./commands/" + f);
         Console.log(`Comando ${f} cargado`);
         client.commands.set(fileName, fileContents);
         delete require.cache[require.resolve(`./commands/${fileName}.js`)];
@@ -38,7 +38,7 @@ fs.readdir(__dirname + "/commands", (err, files) => {
 for(const file of fs.readdirSync("./events")) {
     if(file.endsWith("js")) {
         let fileName = file.substring(0, file.length - 3);
-        let fileContents = require(`./events/${file}`);
+        let fileContents = require("./events/" + file);
         client.on(fileName, fileContents.bind(null, client));
         delete require.cache[require.resolve(`./events/${file}`)];
     }
