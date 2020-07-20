@@ -6,4 +6,4 @@ const guildSchema = new mongoose.Schema({
     logs: String
 });
 
-module.exports = mongoose.model('Guild', guildSchema);
+module.exports = mongoose.model("Guild", guildSchema);
