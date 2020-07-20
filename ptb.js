@@ -13,34 +13,34 @@ client.commands = new Discord.Collection();
 
 fs.readdir(__dirname + "/commands", (err, files) => {
     if(err) {
-        console.error(err)
+        console.error(err);
         return;
     }
 
     let jsfiles = files.filter((f) => f.split(".").pop() === "js");
     if(jsfiles.length < 0) {
-        console.log("Sin comandos")
+        console.log("Sin comandos");
         return;
     }
 
     console.log(`Cargando ${jsfiles.length} comandos.`);
 
     jsfiles.forEach((f, i) => {
-        let fileName = f.substring(0, f.length - 3)
-        let fileContents = require(`./commands/${f}`)
-        console.log(`Comando ${f} cargado`)
-        client.commands.set(fileName, fileContents)
+        let fileName = f.substring(0, f.length - 3);
+        let fileContents = require(`./commands/${f}`);
+        console.log(`Comando ${f} cargado`);
+        client.commands.set(fileName, fileContents);
         delete require.cache[require.resolve(`./commands/${fileName}.js`)];
     });
 });
 
 for(const file of fs.readdirSync("./events")) {
     if(file.endsWith("js")) {
-        let fileName = file.substring(0, file.length - 3)
-        let fileContents = require(`./events/${file}`)
-        client.on(fileName, fileContents.bind(null, client))
+        let fileName = file.substring(0, file.length - 3);
+        let fileContents = require(`./events/${file}`);
+        client.on(fileName, fileContents.bind(null, client));
         delete require.cache[require.resolve(`./events/${file}`)];
-    };
+    }
 };
 
 let uri = `mongodb+srv://${data.database.username}:${data.database.password}@${data.database.url}`;
@@ -51,8 +51,8 @@ mongoose.connect(uri, {
     useFindAndModify: false
 }, async(err) => {
     if(err) {
-        console.error(`Ha ocurrido un error al conectar a la base de datos. (${err})`)
-        process.exit(1)
+        console.error(`Ha ocurrido un error al conectar a la base de datos. (${err})`);
+        process.exit(1);
         return;
     }
     console.log(`${client.user.tag} se ha conectado a la base de datos correctamente.`);
@@ -70,7 +70,7 @@ dbl.on('error', e => {
 */
 
 client.login(data.token.discord).then(() => {
-    console.log(`${client.user.tag} se ha conectado a Discord correctamente.`)
+    console.log(`${client.user.tag} se ha conectado a Discord correctamente.`);
 }).catch((err) => {
-    console.error(`Ha ocurrido un error al conectar. (${err})`)
+    console.error(`Ha ocurrido un error al conectar. (${err})`);
 });
