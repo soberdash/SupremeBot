@@ -61,11 +61,11 @@ mongoose.connect(uri, {
 
 /*
 dlb.on('posted', () => {
-    console.log("Los datos se han enviado a DBL correctamente")
+    Console.log("Los datos se han enviado a DBL correctamente")
 })
 
-dbl.on('error', e => {
-    console.log(`Ha ocurrido un error al enviar los datos a DBL. (${e})`);
+dbl.on('error', (e) => {
+    Console.log(`Ha ocurrido un error al enviar los datos a DBL. (${e})`);
 })
 
 */
