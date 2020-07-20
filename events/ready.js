@@ -14,7 +14,7 @@ module.exports = (client) => {
             {
                 status: "online",
                 activity: {
-                    name: display[parseInt[displayArg]],
+                    name: display[parseInt(displayArg)],
                     type: "WATCHING"
                 }
             }
