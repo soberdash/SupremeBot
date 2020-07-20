@@ -1,4 +1,10 @@
-module.exports = (client) => {
+module.exports = async (client) => {
+    const data = require("./data.json");
+    const guildSchema = require("./models/guild.js");
+    const DBL = require("dblapi.js");
+    const dbl = new DBL(data.token.dbl, client);
+
+    let Console = console;
     let display = [
         "https://www.supremeproject.me",
         "https://discord.supremeproject.me",
@@ -14,10 +20,41 @@ module.exports = (client) => {
             {
                 status: "online",
                 activity: {
-                    name: display[parseInt(displayArg)],
+                    name: display[displayArg],
                     type: "WATCHING"
                 }
             }
         );
     }, 30 * 1000);
+
+    await client.guilds.cache.keyArray().forEach((id) => {
+        guildSchema.findOne({
+            guildID: id
+        }, (err, guild) => {
+            if(err) {
+                Console.error(err)
+                return;
+            }
+            if(!guild) {
+                const newGuildSchema = new guildSchema({
+                    guildID: id,
+                    prefix: ">"
+                })
+                return newGuildSchema.save();
+            }
+        });
+    })
+
+    require('snekfetch').post("https://thlist.glitch.me/api/stats/bot/676258423620370443")
+        .send({ serverCount: client.guilds.cache.size, authorization: "XA-5vPfRMfGMZby"})
+        .set("Content-Type", "application/json")
+        .catch((err) => {
+            Console.error(`Error al enviar datos: ${err}`);
+        });
+    Console.log('Se han enviado los datos a TH List!')
+
+    setInterval(() => {
+        dbl.postStats(client.guilds.cache.size);
+    }, 1800000)
 };
+
