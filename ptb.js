@@ -1,7 +1,7 @@
-const Discord = require("discord.js")
-const client = new Discord.Client()
-const mongoose = require("mongoose")
-const data = require("./data.json")
+const Discord = require("discord.js");
+const client = new Discord.Client();
+const mongoose = require("mongoose");
+const data = require("./data.json");
 /*
 const DBL = require("dblapi.js")
 const dbl = new DBL(data.token.dbl, client);
@@ -11,7 +11,7 @@ let fs = require("fs");
 
 client.commands = new Discord.Collection();
 
-fd.readdir(__dirname + "/commands", (err, files) => {
+fs.readdir(__dirname + "/commands", (err, files) => {
     if(err) return console.error(err);
 
     let jsfiles = files.filter(f => f.split(".").pop() === "js");
