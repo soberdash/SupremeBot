@@ -7,7 +7,7 @@ const DBL = require("dblapi.js")
 const dbl = new DBL(data.token.dbl, client);
 */
 
-let Console = console
+let Console = console;
 let fs = require("fs");
 
 client.commands = new Discord.Collection();
@@ -20,7 +20,7 @@ fs.readdir(__dirname + "/commands", (err, files) => {
 
     let jsfiles = files.filter((f) => f.split(".").pop() === "js");
     if(jsfiles.length < 0) {
-        console.log("Sin comandos");
+        Console.log("Sin comandos");
         return;
     }
 
@@ -29,7 +29,7 @@ fs.readdir(__dirname + "/commands", (err, files) => {
     jsfiles.forEach((f, i) => {
         let fileName = f.substring(0, f.length - 3);
         let fileContents = require(`./commands/${f}`);
-        console.log(`Comando ${f} cargado`);
+        Console.log(`Comando ${f} cargado`);
         client.commands.set(fileName, fileContents);
         delete require.cache[require.resolve(`./commands/${fileName}.js`)];
     });
