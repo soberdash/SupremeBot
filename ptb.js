@@ -21,8 +21,7 @@ if(!commands.length) {
     Log.log(`Cargando ${commands.length} comandos...`);
 
     commands.forEach((file) => {
-        const fileC = require("./commands/" + file);
-        client.commands.set(fileC.name, fileC);
+        client.commands.set(require("./commands/"+file).name, require("./commands/"+file));
         Log.log(`Comando ${fileC.name} cargado.`);
         delete require.cache[require.resolve("./commands/"+file)];
     });
@@ -35,10 +34,8 @@ if(!events.length)  {
     Log.log(`Cargando ${events.length} eventos...`);
 
     events.forEach((file) => {
-        let eventName = file.substring(0, file.length - 3);
-        let event = require("./events/" + file);
-        client.on(eventName, event.bind(null, client));
-        Log.log(`Evento ${eventName.toUpperCase()} cargado`);
+        client.on(file.slice(0, file.length-3), require("./events/"+file).bind(null, client));
+        Log.log(`Evento ${file.slice(0, file.length-3).toUpperCase()} cargado`);
         delete require.cache[require.resolve(`./events/${file}`)];
     });
 }
