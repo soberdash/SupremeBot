@@ -14,27 +14,27 @@ let fs = require("fs");
 
 client.commands = new Discord.Collection();
 
-const commands = fs.readdirSync("./commands").filter(x => x.endsWith(".js"));
+const commands = fs.readdirSync("./commands").filter((x) => x.endsWith(".js"));
 if(!commands.length) {
-    Log.log(`No hay comandos.`);
+    Log.log("Sin comandos");
 } else {
     Log.log(`Cargando ${commands.length} comandos...`);
 
-    commands.forEach(file => {
-        const fileC = require("./commands/"+file);
+    commands.forEach((file) => {
+        const fileC = require("./commands/" + file);
         client.commands.set(fileC.name, fileC);
-        Log.log(`Comando ${f} cargado.`);
+        Log.log(`Comando ${fileC.name} cargado.`);
         delete require.cache[require.resolve("./commands/"+file)];
     });
 }
 
-const events = fs.readdirSync("./events").filter(x => x.endsWith(".js"));
+const events = fs.readdirSync("./events").filter((x) => x.endsWith(".js"));
 if(!events.length)  {
-    Log.log(`No hay eventos.`);
+    Log.log("Sin eventos");
 } else {
     Log.log(`Cargando ${events.length} eventos...`);
 
-    events.forEach(file => {
+    events.forEach((file) => {
         let eventName = file.substring(0, file.length - 3);
         let event = require("./events/" + file);
         client.on(eventName, event.bind(null, client));
@@ -55,7 +55,7 @@ mongoose.connect(uri, {
         process.exit(1);
         return;
     }
-    Log.log(`Conectado a MongoDB.`);
+    Log.log("Conectado a MongoDB");
 });
 
 /*
