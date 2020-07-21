@@ -2,61 +2,60 @@ const Discord = require("discord.js");
 const client = new Discord.Client();
 const mongoose = require("mongoose");
 const data = require("./data.json");
+
 /*
 const DBL = require("dblapi.js")
 const dbl = new DBL(data.token.dbl, client);
 */
 
-let Console = console;
+const { Console } = require("console");
+let Log = new Console({ stdout: process.stdout, stderr: process.stderr });
 let fs = require("fs");
 
 client.commands = new Discord.Collection();
 
-fs.readdirSync(__dirname + "/commands", (err, files) => {
-    if(err) {
-        Console.error(err);
-        return;
-    }
+const commands = fs.readdirSync("./commands").filter(x => x.endsWith(".js"));
+if(!commands.length) {
+    Log.log(`No hay comandos.`);
+} else {
+    Log.log(`Cargando ${commands.length} comandos...`);
 
-    let jsfiles = files.filter((f) => f.split(".").pop() === "js");
-    if(jsfiles.length < 0) {
-        Console.log("Sin comandos");
-        return;
-    }
-
-    Console.log(`Cargando ${jsfiles.length} comandos.`);
-
-    jsfiles.forEach((f, i) => {
-        let fileName = f.substring(0, f.length - 3);
-        let fileContents = require("./commands/" + f);
-        Console.log(`Comando ${f} cargado`);
-        client.commands.set(fileName, fileContents);
-        delete require.cache[require.resolve(`./commands/${fileName}.js`)];
+    commands.forEach(file => {
+        const fileC = require("./commands/"+file);
+        client.commands.set(fileC.name, fileC);
+        Log.log(`Comando ${f} cargado.`);
+        delete require.cache[require.resolve("./commands/"+file)];
     });
-});
-
-for(const file of fs.readdirSync("./events")) {
-    if(file.endsWith("js")) {
-        let fileName = file.substring(0, file.length - 3);
-        let fileContents = require("./events/" + file);
-        client.on(fileName, fileContents.bind(null, client));
-        delete require.cache[require.resolve(`./events/${file}`)];
-    }
 }
 
-let uri = `mongodb+srv://${data.database.username}:${data.database.password}@${data.database.url}`;
+const events = fs.readdirSync("./events").filter(x => x.endsWith(".js"));
+if(!events.length)  {
+    Log.log(`No hay eventos.`);
+} else {
+    Log.log(`Cargando ${events.length} eventos...`);
+
+    events.forEach(file => {
+        let eventName = file.substring(0, file.length - 3);
+        let event = require("./events/" + file);
+        client.on(eventName, event.bind(null, client));
+        Log.log(`Evento ${eventName.toUpperCase()} cargado`);
+        delete require.cache[require.resolve(`./events/${file}`)];
+    });
+}
+
+let uri = `mongodb+srv://${data.database.username}:${data.database.password}@${data.database.url}/supremebot?retryWrites=true&w=majority`;
 
 mongoose.connect(uri, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useFindAndModify: false
-}, async(err) => {
+}, function(err) {
     if(err) {
-        Console.error(`Ha ocurrido un error al conectar a la base de datos. (${err})`);
+        Log.error(`Ha ocurrido un error al conectar con la base de datos.\n${err}`);
         process.exit(1);
         return;
     }
-    Console.log(`${client.user.tag} se ha conectado a la base de datos correctamente.`);
+    Log.log(`Conectado a MongoDB.`);
 });
 
 /*
@@ -71,7 +70,7 @@ dbl.on('error', (e) => {
 */
 
 client.login(data.token.discord).then(() => {
-    Console.log(`${client.user.tag} se ha conectado a Discord correctamente.`);
+    Log.log(`Sesión iniciada en ${client.user.tag}.`);
 }).catch((err) => {
-    Console.error(`Ha ocurrido un error al conectar. (${err})`);
+    Log.error(`Ha ocurrido un error al iniciar sesión. \n${err}`);
 });
