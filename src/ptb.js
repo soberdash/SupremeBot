@@ -40,7 +40,7 @@ if(!events.length)  {
     });
 }
 
-let uri = `mongodb+srv://${data.database.username}:${data.database.password}@${data.database.url}/supremebot?retryWrites=true&w=majority`;
+let uri = `mongodb://${data.database.username}:${data.database.password}@${data.database.url}/supremebot?retryWrites=true&w=majority`;
 
 mongoose.connect(uri, {
     useNewUrlParser: true,
@@ -52,7 +52,7 @@ mongoose.connect(uri, {
         process.exit(1);
         return;
     }
-    Log.log("Conectado a MongoDB");
+    Log.log(`Conectado correctamente a ${data.database.url} (MongoDB)`);
 });
 
 /*

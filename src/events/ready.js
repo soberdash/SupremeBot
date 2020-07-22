@@ -8,24 +8,21 @@ module.exports = async (client) => {
     let display = [
         "https://www.supremeproject.me",
         "https://discord.supremeproject.me",
-        "#Stay at home!",
+        "#StayAtHome! | #StayAtSupremeProject!",
         `${client.guilds.cache.size} guilds!`,
         `${client.users.cache.size} users!`
     ];
 
-    let displayArg = Math.floor(((Math.random() * display.length) + 1) - 1);
+    function presence(presenceList){
 
-    setInterval(() => {
-        client.user.setPresence(
-            {
-                status: "online",
-                activity: {
-                    name: display[displayArg],
-                    type: "WATCHING"
-                }
-            }
-        );
-    }, 30 * 1000);
+        let randomPresences = presenceList;
+        let randomPresence = randomPresences[Math.floor(Math.random() * presenceList.length)];
+
+        return client.user.setPresence({ status: "online", activity: { name: randomPresence, type: "WATCHING" } })
+
+    }
+
+    setInterval(presence(display), 120 * 1000);
 
     await client.guilds.cache.keyArray().forEach((id) => {
         GuildSchema.findOne({
