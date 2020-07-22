@@ -22,7 +22,7 @@ if(!commands.length) {
 
     commands.forEach((file) => {
         client.commands.set(require("./commands/"+file).name, require("./commands/"+file));
-        Log.log(`Comando ${fileC.name} cargado.`);
+        Log.log(`Comando ${file.name} cargado.`);
         delete require.cache[require.resolve("./commands/"+file)];
     });
 }

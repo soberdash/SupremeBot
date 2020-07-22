@@ -18,7 +18,7 @@ module.exports = async (client) => {
         let randomPresences = presenceList;
         let randomPresence = randomPresences[Math.floor(Math.random() * presenceList.length)];
 
-        return client.user.setPresence({ status: "online", activity: { name: randomPresence, type: "WATCHING" } })
+        return client.user.setPresence({ status: "online", activity: { name: randomPresence, type: "WATCHING" } });
 
     }
 
