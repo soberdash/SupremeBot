@@ -1,4 +1,5 @@
 # SupremeBot
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/ab48459d909c49889bdf5574e1a7c454)](https://www.codacy.com/gh/SupremeProject-Inc/SupremeBot?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=SupremeProject-Inc/SupremeBot&amp;utm_campaign=Badge_Grade)
 [ ![discord-shield][] ][discord-invite]
 [![Status](https://top.gg/api/widget/status/676258423620370443.svg)](https://top.gg/bot/676258423620370443)
 [![Servers](https://top.gg/api/widget/servers/676258423620370443.svg)](https://top.gg/bot/676258423620370443)
