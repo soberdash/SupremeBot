@@ -12,18 +12,20 @@ module.exports = async (client) => {
         `${client.guilds.cache.size} guilds!`,
         `${client.users.cache.size} users!`
     ];
+    let numberRandom = Math.floor(Math.random() * display.length)
 
-    function presence(presenceList){
-
-        let randomPresences = presenceList;
-        let randomPresence = randomPresences[Math.floor(Math.random() * presenceList.length)];
-
-        return client.user.setPresence({ status: "online", activity: { name: randomPresence, type: "WATCHING" } });
-
-    }
-
-    setInterval(presence(display), 120 * 1000);
-
+    setInterval(() => {
+        client.user.setPresence(
+            {
+                status: "online",
+                activity: {
+                    name: display[numberRandom],
+                    type: "WATCHING"
+                }
+            }
+        );
+    }, 25 * 1000);
+    
     await client.guilds.cache.keyArray().forEach((id) => {
         GuildSchema.findOne({
             guildID: id
@@ -35,6 +37,7 @@ module.exports = async (client) => {
             if(!guild) {
                 const newGuildSchema = new GuildSchema({
                     guildID: id,
+                    lang: "lang_en",
                     prefix: ">"
                 });
                 return newGuildSchema.save();
