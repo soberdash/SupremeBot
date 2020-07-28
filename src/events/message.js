@@ -1,24 +1,65 @@
 module.exports = (client, message) =>  {
+    const { Console } = require("console");
+    var Log = new Console({ stdout: process.stdout, stderr: process.stderr });
     const Discord = require("discord.js");
-    const guildSchema = require("./models/guild.js")
+    const guildSchema = require("../models/guild.js");
+    const userSchema = require("../models/user.js");
     let prefix = ">";
+    userSchema.findOne({
+        userID: message.author.id
+    }, (err, user) => {
+        if(err) {
+            Log.error(err);
+        }
+        if(!user) {
+            const newUserSchema = new userSchema({
+                userID: message.author.id,
+                lang: "lang_en"
+            });
+            return newUserSchema.save();
+        }
+        var nLang = user.lang;
+        var lang = require(`../langs/${user.lang}.json`);
+        guildSchema.findOne({
+            guildID: message.guild.id
+        }, (err, guild) => {
+            if(err) {
+                Log.error(err);
+            }
+            var prefix = guild.prefix;
+            var errorEmbed = new Discord.MessageEmbed()
+                .setTitle("SupremeBot | Error")
+                .setAuthor(message.author.tag, message.author.displayAvatarURL())
+                .setDescription(lang.command.error)
+                .setColor("RED")
+                .setFooter(lang.embed.footer)
+                .setTimestamp();
+            if(!message.content.startsWith(prefix)) {
+                return;
+            }
+            if(message.author.bot) {
+                return;
+            }
 
-    if(!message.content.startsWith(prefix)) return;
-    if(message.author.bot) return;
+            const args = message.content.slice(prefix.length).trim().split(/ +/g);
+            const command = args.shift().toLowerCase();
 
-    const args = message.content.slice(prefix.lengt).trim().split(/ + /g);
-    const command = args.shift().toLocaleLowerCase();
+            var cmd = client.commands.get(command) || client.commands.find((c) => c.alias && c.alias.includes(command));
+            if(!cmd) {
+                return;
+            }
+            if(!message.member.permissions.has(cmd.perms)) {
+                message.channel.send(lang.command.noperms + `\`${cmd.perms.join(", ")}\``);
+                return;
+            }
 
-    let cmd = client.commands.get(command) || client.commands.cache.find(c => c.alias === command);
-    if(!cmd) return;
-
-    try {
-        cmd.run(client, message, args);
-    } catch(err) {
-        message.channel.send();
-        client.channels.resolve("691114601361702952").send(`Ha ocurrido un error al ejecutar el comando ${cmd.name}.\n`+"```js\n"+err+"\n```");
-    }
-
-
-
+            try {
+                cmd.run(client, message, args, lang, prefix, Log, nLang, errorEmbed);
+            } catch(err) {
+                message.channel.send(errorEmbed);
+                Log.error(err);
+                client.channels.resolve("737746024810020939").send(`Ha ocurrido un error al ejecutar el comando \`${cmd.name}\`. Para más información revisa la consola.\n` + "```js\n" + err + "```");
+            }
+        });
+    });
 }

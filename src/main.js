@@ -14,33 +14,39 @@ let fs = require("fs");
 
 client.commands = new Discord.Collection();
 
-const commands = fs.readdirSync("./commands").filter((x) => x.endsWith(".js"));
-if(!commands.length) {
-    Log.log("Sin comandos");
-} else {
-    Log.log(`Cargando ${commands.length} comandos...`);
+fs.readdir(__dirname + "/commands", (err, files) => {
+    if(err) {
+        Log.error(err);
+        return;
+    }
 
-    commands.forEach((file) => {
-        client.commands.set(require("./commands/"+file).name, require("./commands/"+file));
-        Log.log(`Comando ${file.name} cargado.`);
-        delete require.cache[require.resolve("./commands/"+file)];
+    let jsfiles = files.filter((f) => f.split(".").pop() === "js");
+    if(jsfiles.length < 0) {
+        Log.log("Sin comandos");
+        return;
+    }
+
+    Log.log(`Cargando ${jsfiles.length} comandos.`);
+
+    jsfiles.forEach((f, i) => {
+        let fileName = f.substring(0, f.length - 3);
+        let fileContents = require("./commands/" + f);
+        Log.log(`Comando ${f} cargado`);
+        client.commands.set(fileName, fileContents);
+        delete require.cache[require.resolve(`./commands/${fileName}.js`)];
     });
-}
+});
 
-const events = fs.readdirSync("./events").filter((x) => x.endsWith(".js"));
-if(!events.length)  {
-    Log.log("Sin eventos");
-} else {
-    Log.log(`Cargando ${events.length} eventos...`);
-
-    events.forEach((file) => {
-        client.on(file.slice(0, file.length-3), require("./events/"+file).bind(null, client));
-        Log.log(`Evento ${file.slice(0, file.length-3).toUpperCase()} cargado`);
+for(const file of fs.readdirSync("./src/events")) {
+    if(file.endsWith("js")) {
+        let fileName = file.substring(0, file.length - 3);
+        let fileContents = require("./events/" + file);
+        client.on(fileName, fileContents.bind(null, client));
         delete require.cache[require.resolve(`./events/${file}`)];
-    });
+    }
 }
 
-let uri = `mongodb://${data.database.username}:${data.database.password}@${data.database.url}/supremebot?retryWrites=true&w=majority`;
+let uri = `mongodb+srv://${data.database.username}:${data.database.password}@${data.database.url}/supremebot?retryWrites=true&w=majority`;
 
 mongoose.connect(uri, {
     useNewUrlParser: true,

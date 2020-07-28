@@ -1,7 +1,17 @@
 {
-  "noperms": "No tienes permisos para realizar esta acción!",
-  "nomention": "Debes mencionar a alguien.",
-  "noreason": "Debes mencionar una razón.",
-  "err": "Ha ocurrido un error inesperado. Si el mismo continúa contáctate con nuestro [Equipo de Soporte](https://discord.supremeproject.me)",
-  "emfooter": "SupremeBot | Developed by SupremeProject"
+  "command": {
+    "error": "Se produjo un error al ejecutar el comando. Si el problema persiste, contáctanos a través de [nuestro grupo de soporte](https://discord.supremeproject.me)",
+    "noperms": "No tienes permisos para ejecutar este comando. Requerido: "
+  },
+  "embed": {
+    "footer": "SupremeBot | Contacta Supreme Project para más información."
+  },
+  "langembed": {
+    "title": "SupremeBot | Idioma",
+    "desc": "Acá puedes cambiar el idioma del bot.",
+    "fieldtitles": {
+      "avaible": "Disponibles",
+      "usage": "Uso"
+    }
+  }
 }

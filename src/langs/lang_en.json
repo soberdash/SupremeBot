@@ -1,3 +1,17 @@
 {
-  "commanderror": "An error occurred while executing the command. If the problem persists contact us through [our support group] (https://discord.supremeproject.me)"
+  "command": {
+    "error": "An error occurred while executing the command. If the problem persists contact us through [our support group](https://discord.supremeproject.me)",
+    "noperms": "You do not have permissions to execute this command. Required: "
+  },
+  "embed": {
+    "footer": "SupremeBot | Contact Supreme Project for more information."
+  },
+  "langembed": {
+    "title": "SupremeBot | Language",
+    "desc": "Here you can change the language of the bot.",
+    "fieldtitles": {
+      "avaible": "Avaibles",
+      "usage": "Usage"
+    }
+  }
 }

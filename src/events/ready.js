@@ -4,7 +4,9 @@ module.exports = async (client) => {
     const DBL = require("dblapi.js");
     const dbl = new DBL(data.token.dbl, client);
 
-    let Console = console;
+    const { Console } = require("console");
+    let Log = new Console({ stdout: process.stdout, stderr: process.stderr });
+
     let display = [
         "https://www.supremeproject.me",
         "https://discord.supremeproject.me",
@@ -12,7 +14,7 @@ module.exports = async (client) => {
         `${client.guilds.cache.size} guilds!`,
         `${client.users.cache.size} users!`
     ];
-    let numberRandom = Math.floor(Math.random() * display.length)
+    let numberRandom = Math.floor(Math.random() * display.length);
 
     setInterval(() => {
         client.user.setPresence(
@@ -25,33 +27,50 @@ module.exports = async (client) => {
             }
         );
     }, 25 * 1000);
-    
-    await client.guilds.cache.keyArray().forEach((id) => {
+
+    client.guilds.cache.map(g => g.id).forEach((id) => {
         GuildSchema.findOne({
             guildID: id
         }, (err, guild) => {
             if(err) {
-                Console.error(err);
+                Log.error(err);
                 return;
             }
             if(!guild) {
                 const newGuildSchema = new GuildSchema({
                     guildID: id,
-                    lang: "lang_en",
                     prefix: ">"
                 });
-                return newGuildSchema.save();
+                return newGuildSchema.save().then(() => {
+                    Log.log("Se han guardado exitosamente los datos para "+client.guilds.resolve(id).name);
+                }).catch((err) => {
+                    Log.error("Ha ocurrido un error al guardar los datos. "+err)
+                })
+            }
+        })
+    })
+    /*
+    await client.guilds.cache.keyArray().forEach((id) => {
+        GuildSchema.findOne({
+            guildID: id
+        }, (err, guild) => {
+            if(err) {
+                Log.error(err);
+                return;
+            }
+            if(!guild) {
+
             }
         });
     });
-
+    */
     require("snekfetch").post("https://thlist.glitch.me/api/stats/bot/676258423620370443")
         .send({ serverCount: client.guilds.cache.size, authorization: "XA-5vPfRMfGMZby"})
         .set("Content-Type", "application/json")
         .catch((err) => {
-            Console.error(`Error al enviar datos: ${err}`);
+            Log.error(`Error al enviar datos: ${err}`);
         });
-    Console.log("Se han enviado los datos a TH List!");
+    Log.log("Se han enviado los datos a TH List!");
 
     setInterval(() => {
         dbl.postStats(client.guilds.cache.size);
