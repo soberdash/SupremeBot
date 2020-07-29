@@ -28,7 +28,7 @@ module.exports = async (client) => {
         );
     }, 25 * 1000);
 
-    client.guilds.cache.map(g => g.id).forEach((id) => {
+    client.guilds.cache.map((g) => g.id).forEach((id) => {
         GuildSchema.findOne({
             guildID: id
         }, (err, guild) => {
@@ -45,25 +45,10 @@ module.exports = async (client) => {
                     Log.log("Se han guardado exitosamente los datos para "+client.guilds.resolve(id).name);
                 }).catch((err) => {
                     Log.error("Ha ocurrido un error al guardar los datos. "+err)
-                })
-            }
+                });
+            };
         })
     })
-    /*
-    await client.guilds.cache.keyArray().forEach((id) => {
-        GuildSchema.findOne({
-            guildID: id
-        }, (err, guild) => {
-            if(err) {
-                Log.error(err);
-                return;
-            }
-            if(!guild) {
-
-            }
-        });
-    });
-    */
     require("snekfetch").post("https://thlist.glitch.me/api/stats/bot/676258423620370443")
         .send({ serverCount: client.guilds.cache.size, authorization: "XA-5vPfRMfGMZby"})
         .set("Content-Type", "application/json")

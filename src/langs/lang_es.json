@@ -1,10 +1,11 @@
 {
   "command": {
-    "error": "Se produjo un error al ejecutar el comando. Si el problema persiste, contáctanos a través de [nuestro grupo de soporte](https://discord.supremeproject.me)",
+    "error": "Se produjo un error al ejecutar el comando. Si el problema persiste, contáctanos a través de [nuestro grupo de soporte.](https://discord.supremeproject.me)",
     "noperms": "No tienes permisos para ejecutar este comando. Requerido: "
   },
   "embed": {
-    "footer": "SupremeBot | Contacta Supreme Project para más información."
+    "footer": "SupremeBot | Contacta Supreme Project para más información.",
+    "titleerror": "SupremeBot | Error"
   },
   "langembed": {
     "title": "SupremeBot | Idioma",
@@ -13,5 +14,9 @@
       "avaible": "Disponibles",
       "usage": "Uso"
     }
+  },
+  "changelang": {
+    "same": "¡Ya tienes este idioma seleccionado!",
+    "successfully": "¡Se ha cambiado correctamente el idioma a Español!"
   }
 }

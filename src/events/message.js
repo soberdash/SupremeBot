@@ -3,8 +3,9 @@ module.exports = (client, message) =>  {
     var Log = new Console({ stdout: process.stdout, stderr: process.stderr });
     const Discord = require("discord.js");
     const guildSchema = require("../models/guild.js");
-    const userSchema = require("../models/user.js");
+    const UserSchema = require("../models/user.js");
     let prefix = ">";
+    var emoji = require("../utils/emoji.json")
     userSchema.findOne({
         userID: message.author.id
     }, (err, user) => {
@@ -12,7 +13,7 @@ module.exports = (client, message) =>  {
             Log.error(err);
         }
         if(!user) {
-            const newUserSchema = new userSchema({
+            const newUserSchema = new UserSchema({
                 userID: message.author.id,
                 lang: "lang_en"
             });
@@ -28,7 +29,7 @@ module.exports = (client, message) =>  {
             }
             var prefix = guild.prefix;
             var errorEmbed = new Discord.MessageEmbed()
-                .setTitle("SupremeBot | Error")
+                .setTitle(lang.embed.titleerror)
                 .setAuthor(message.author.tag, message.author.displayAvatarURL())
                 .setDescription(lang.command.error)
                 .setColor("RED")
@@ -54,7 +55,7 @@ module.exports = (client, message) =>  {
             }
 
             try {
-                cmd.run(client, message, args, lang, prefix, Log, nLang, errorEmbed);
+                cmd.run(client, message, args, lang, prefix, Log, nLang, errorEmbed, emoji);
             } catch(err) {
                 message.channel.send(errorEmbed);
                 Log.error(err);
@@ -62,4 +63,4 @@ module.exports = (client, message) =>  {
             }
         });
     });
-}
+};
