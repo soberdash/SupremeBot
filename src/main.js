@@ -1,7 +1,7 @@
 const Discord = require("discord.js");
 const client = new Discord.Client();
 const mongoose = require("mongoose");
-const data = require("../utils/data.json");
+const data = require("./utils/data.json");
 
 /*
 const DBL = require("dblapi.js")
