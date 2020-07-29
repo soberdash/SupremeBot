@@ -9,7 +9,7 @@
   },
   "langembed": {
     "title": "SupremeBot | Língua",
-    "desc": "Aqui você pode alterar o idioma do bot.",
+    "desc": "Nesta seção, você pode alterar o idioma que verá no bot. Você pode escolher entre os seguintes idiomas disponíveis.",
     "fieldtitles": {
       "avaible": "Acessível",
       "usage": "Usar"

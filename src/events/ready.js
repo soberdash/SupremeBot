@@ -1,5 +1,5 @@
 module.exports = async (client) => {
-    const data = require("../data.json");
+    const data = require("../utils/data.json");
     const GuildSchema = require("../models/guild.js");
     const DBL = require("dblapi.js");
     const dbl = new DBL(data.token.dbl, client);

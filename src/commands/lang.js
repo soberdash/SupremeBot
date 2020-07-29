@@ -1,6 +1,6 @@
 module.exports = {
     name: "lang",
-    alias: ["language", "idioma"],
+    alias: ["language"],
     perms: [],
     run: (client, message, args, lang, prefix, Log, nLang, errorEmbed, emoji) => {
 
@@ -8,8 +8,8 @@ module.exports = {
         const UserSchema = require("../models/user.js");
 
         let arrayArgs = [
-            "es",
             "en",
+            "es",
             "pt",
             "fr"
         ];
@@ -41,7 +41,7 @@ module.exports = {
             new: true
         }).then(() => {
             let newLang = require(`../langs/lang_${argLang}.json`);
-            message.channel.send(newLang.changelang.successfully);
+            message.channel.send(emoji.animated.yes.string+newLang.changelang.successfully);
         }).catch((err) => {
             message.channel.send(errorEmbed);
         });
