@@ -5,8 +5,8 @@ module.exports = (client, message) =>  {
     const guildSchema = require("../models/guild.js");
     const UserSchema = require("../models/user.js");
     let prefix = ">";
-    var emoji = require("../utils/emoji.json")
-    userSchema.findOne({
+    var emoji = require("../utils/emoji.json");
+    UserSchema.findOne({
         userID: message.author.id
     }, (err, user) => {
         if(err) {

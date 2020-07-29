@@ -40,8 +40,8 @@ module.exports = {
         }, {
             new: true
         }).then(() => {
-            let newLang = require(`../langs/lang_${argLang}.json`)
-            message.channel.send(newLang.changelang.successfully)
+            let newLang = require(`../langs/lang_${argLang}.json`);
+            message.channel.send(newLang.changelang.successfully);
         }).catch((err) => {
             message.channel.send(errorEmbed);
         });

@@ -44,10 +44,10 @@ module.exports = async (client) => {
                 return newGuildSchema.save().then(() => {
                     Log.log("Se han guardado exitosamente los datos para "+client.guilds.resolve(id).name);
                 }).catch((err) => {
-                    Log.error("Ha ocurrido un error al guardar los datos. "+err)
+                    Log.error("Ha ocurrido un error al guardar los datos. "+err);
                 });
-            };
-        })
+            }
+        });
     })
     require("snekfetch").post("https://thlist.glitch.me/api/stats/bot/676258423620370443")
         .send({ serverCount: client.guilds.cache.size, authorization: "XA-5vPfRMfGMZby"})
