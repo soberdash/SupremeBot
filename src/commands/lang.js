@@ -1,34 +1,38 @@
+var arrayArgs = [
+    "en",
+    "es",
+    "pt",
+    "fr"
+];
+
 module.exports = {
     name: "lang",
+    usage: `lang <${arrayArgs.join("/")}>`,
     alias: ["language"],
+    cooldown: 5,
+    onlyowner: false,
+    onlydev: false,
     perms: [],
-    run: (client, message, args, lang, prefix, Log, nLang, errorEmbed, emoji) => {
+    run: (client, message, args, storage) => {
 
         const Discord = require("discord.js");
         const UserSchema = require("../models/user.js");
 
-        let arrayArgs = [
-            "en",
-            "es",
-            "pt",
-            "fr"
-        ];
-
         const principalEmbed = new Discord.MessageEmbed()
-            .setTitle(lang.langembed.title)
-            .setDescription(lang.langembed.desc)
-            .addField(lang.langembed.fieldtitles.avaible, `\`${arrayArgs.join(", ")}\``)
-            .addField(lang.langembed.fieldtitles.usage, `\`${prefix}lang <${arrayArgs.join("/")}>\``)
+            .setTitle(storage.lang.langembed.title)
+            .setDescription(storage.lang.langembed.desc)
+            .addField(storage.lang.langembed.fieldtitles.avaible, `\`${arrayArgs.join(", ")}\``)
+            .addField(storage.lang.langembed.fieldtitles.usage, `\`${storage.guild.prefix}lang <${arrayArgs.join("/")}>\``)
             .setColor("RANDOM")
-            .setFooter(lang.embed.footer)
+            .setFooter(storage.lang.embed.footer)
             .setTimestamp();
         if(!args[0] || !arrayArgs.includes(args[0].toLowerCase())) {
             message.channel.send(principalEmbed);
             return;
         }
         let argLang = args[0].toLowerCase();
-        if(`lang_${argLang}` === nLang) {
-            message.channel.send(lang.changelang.same);
+        if(`lang_${argLang}` === storage.user.lang) {
+            message.channel.send(storage.lang.changelang.same);
             return;
         }
         UserSchema.findOneAndUpdate({
@@ -41,9 +45,9 @@ module.exports = {
             new: true
         }).then(() => {
             let newLang = require(`../langs/lang_${argLang}.json`);
-            message.channel.send(emoji.animated.yes.string+newLang.changelang.successfully);
+            message.channel.send(storage.emoji.animated.yes.string + newLang.changelang.successfully);
         }).catch((err) => {
-            message.channel.send(errorEmbed);
+            message.channel.send(storage.errorEmbed);
         });
     }
 };

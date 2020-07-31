@@ -13,6 +13,7 @@ let Log = new Console({ stdout: process.stdout, stderr: process.stderr });
 let fs = require("fs");
 
 client.commands = new Discord.Collection();
+client.cooldowns = new Discord.Collection();
 
 fs.readdir(__dirname + "/commands", (err, files) => {
     if(err) {

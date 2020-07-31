@@ -1,11 +1,14 @@
 {
   "command": {
-    "error": "An error occurred while executing the command. If the problem persists contact us through [our support group.](https://discord.supremeproject.me)",
-    "noperms": "You do not have permissions to execute this command. Required: "
+    "noperms": "You do not have permissions to execute this command. Required: ",
+    "onlydev": "You do not have permissions to perform this action.",
+    "cooldown": "Stop there, you must wait `{seconds} seconds` before using the `{command}` command again!"
   },
   "embed": {
+    "error": "An error occurred while executing the command. If the problem persists contact us through [our support group.](https://discord.supremeproject.me)",
     "footer": "SupremeBot | Contact Supreme Project for more information.",
-    "titleerror": "SupremeBot | Error"
+    "titleerror": "SupremeBot | Error",
+    "blacklisted": "Stop there! You have been blacklisted from our bot :(\nIf you want more information join [our Discord.](https://discord.supremeproject.me)"
   },
   "langembed": {
     "title": "SupremeBot | Language",
@@ -18,5 +21,10 @@
   "changelang": {
     "same": "You already have this language selected!",
     "successfully": "Language has been successfully changed to English!"
+  },
+  "commands": {
+    "dev": {
+      "info": "Add or remove developers from the bot, as well as see the list of them."
+    }
   }
 }

@@ -3,6 +3,8 @@ const mongoose = require("mongoose");
 const userSchema = new mongoose.Schema({
     userID: String,
     lang: String,
+    blacklisted: Boolean,
+    dev: Boolean,
     profile: {
         background: String,
         title: String,

@@ -1,11 +1,14 @@
 {
   "command": {
-    "error": "Ocorreu um erro ao executar o comando. Se o problema persistir, entre em contato conosco através do [nosso grupo de suporte.](https://discord.supremeproject.me)",
-    "noperms": "Você não tem permissões para executar este comando. Requeridos: "
+    "noperms": "Você não tem permissões para executar este comando. Requeridos: ",
+    "onlydev": "Você não tem permissões para executar esta ação.",
+    "cooldown": "Pare aí, você deve esperar `{seconds} segundos` antes de usar o comando `{command}` novamente!"
   },
   "embed": {
+    "error": "Ocorreu um erro ao executar o comando. Se o problema persistir, entre em contato conosco através do [nosso grupo de suporte.](https://discord.supremeproject.me)",
     "footer": "SupremeBot | Entre em contato com o Supreme Project para obter mais informações.",
-    "titleerror": "SupremeBot | Erro"
+    "titleerror": "SupremeBot | Erro",
+    "blacklisted": "Alto aí! Você foi incluído na lista negra do nosso bot :(\nSe você quiser obter mais informações, entre no [nosso Discord.](https://discord.supremeproject.me)"
   },
   "langembed": {
     "title": "SupremeBot | Língua",
@@ -18,5 +21,10 @@
   "changelang": {
     "same": "Você já tem este idioma selecionado!",
     "successfully": "O idioma foi alterado com sucesso para Português!"
+  },
+  "commands": {
+    "dev": {
+      "info": "Adicione ou remova desenvolvedores do bot e veja a lista deles."
+    }
   }
 }
