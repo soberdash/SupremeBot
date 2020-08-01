@@ -100,7 +100,7 @@ module.exports = {
                     }, {
                         new: true
                     }).then(() => {
-                        message.channel.send(storage.emoji.animated.yes.string + "The ID has been removed to the database successfully!")
+                        message.channel.send(storage.emoji.animated.yes.string + "The ID has been removed to the database successfully!");
                     }).catch((err) => {
                         message.channel.send(storage.errorEmbed);
                         storage.Log.log(err);
@@ -111,7 +111,7 @@ module.exports = {
         if(args[0] === "list") {
 
             let search = await storage.UserSchema.find();
-            let list = search.filter(u => u.blacklisted === true).map(u => `+ ${client.users.resolve(u.userID).tag} (${u.userID})`).join(" \n");
+            let list = search.filter((u) => u.blacklisted === true).map(u => `+ ${client.users.resolve(u.userID).tag} (${u.userID})`).join(" \n");
             message.channel.send("```diff\n- SupremeBot Blacklist\n \n" + list + "\n \n--- Supreme Project ---```")
 
 

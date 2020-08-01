@@ -59,5 +59,5 @@ module.exports = async (client) => {
     setInterval(() => {
         dbl.postStats(client.guilds.cache.size);
     }, 1800000);
+    client.channels.resolve("722262887409648035").send("Me encendi!").then(m => m.react("709633371122434050"))
 };
-

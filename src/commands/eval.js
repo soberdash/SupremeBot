@@ -33,10 +33,10 @@ module.exports = {
                 if(error){
           
                     return embed = e
-                        .addField(`Type`, `\`\`\`prolog\n${type}\n\`\`\``, true)
-                        .addField(`Evalued in`, `\`\`\`yaml\n${new Date()-message.createdTimestamp}ms\n\`\`\``, true)
-                        .addField(`Input`, `${input}`)
-                        .addField(`Output`, `${output}`);
+                        .addField("Type", `\`\`\`prolog\n${type}\n\`\`\``, true)
+                        .addField("Evalued in", `\`\`\`yaml\n${new Date()-message.createdTimestamp}ms\n\`\`\``, true)
+                        .addField("Input", `${input}`)
+                        .addField("Output", `${output}`);
         
           
                 } else {
@@ -71,14 +71,13 @@ module.exports = {
                 let evaltype = typeof(evalued);
                 let evalTypeSplitted = evaltype.split("");
                 let evalType = evalTypeSplitted[0].toUpperCase()+evalTypeSplitted.slice(1).join("");
-                if (typeof evalued !== "string");
-                evalued = require("util").inspect(evalued, { depth: 0 });
+                if(typeof(evalued) !== "string" ? evalued = require("util").inspect(evalued, { depth: 0 }) : evalued);
                 const txt = "" + evalued;
       
                 if (txt.length > limit) {
 
                     message.channel.send(embed(evalcode(code), evalcode(txt.slice(0, limit)), evalType, "GREEN", "Evaluation", true, false));
-                    console.log(txt);
+                    storage.Log.log(txt);
         
                 } else {
         
