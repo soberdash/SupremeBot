@@ -56,7 +56,8 @@ module.exports = async (client) => {
         });
     Log.log("Se han enviado los datos a TH List!");
 
+/*
     setInterval(() => {
         dbl.postStats(client.guilds.cache.size);
-    }, 1800000);
+    }, 1800000);*/
 };

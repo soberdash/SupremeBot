@@ -1,8 +1,6 @@
 module.exports = (client, message) =>  {
     const { Console } = require("console");
-
-    const Discord = require("discord.js");
-
+    var Discord = require("discord.js");
     var GuildSchema = require("../models/guild.js");
     var UserSchema = require("../models/user.js");
     var Log = new Console({ stdout: process.stdout, stderr: process.stderr });
@@ -44,7 +42,7 @@ module.exports = (client, message) =>  {
             var prefix = guild.prefix;
 
             if(message.content.match(new RegExp(`^<@!?${client.user.id}>( |)$`))) {
-                message.channel.send('<:supreme:690641733641306223> Mi prefix en el servidor ``'+message.guild.name+'`` es: ``'+prefix+'``');
+                message.channel.send(`<:supreme:690641733641306223> Mi prefix en el servidor \`${message.guild.name}\` es: \`${prefix}\``);
             }
 
             var errorEmbed = new Discord.MessageEmbed()
@@ -108,8 +106,9 @@ module.exports = (client, message) =>  {
                 errorEmbed: errorEmbed,
                 Log: Log,
                 GuildSchema: GuildSchema,
-                UserSchema: UserSchema
-            }
+                UserSchema: UserSchema,
+                Discord: Discord
+            };
 
             const cmdCooldown = Math.floor(cmd.cooldown * 1000);
             const endCooldown = Math.floor(Date.now() + cmdCooldown);

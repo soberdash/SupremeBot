@@ -37,7 +37,7 @@ module.exports = {
                 message.channel.send(`${storage.emoji.animated.yes.string}The command \`${nameCmd}\` was successfully restarted.`);
                 delete require.cache[require.resolve(`../commands/${nameCmd}.js`)];
             } catch (err) {
-                message.channel.send(`${storage.emoji.animated.no.string}An error occurred while restarting the command \`${nameCmd}\`` + '```js\n'+error+'```');
+                message.channel.send(`${storage.emoji.animated.no.string}An error occurred while restarting the command \`${nameCmd}\`\n` + '```js\n'+err+'```');
             }
         }
     }

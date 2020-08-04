@@ -44,18 +44,18 @@ module.exports = {
                     if(large){
           
                         return embed = e.setDescription(`Check the console for view the complete evaluation.`)
-                            .addField(`Type`, `\`\`\`prolog\n${type}\n\`\`\``, true)
-                            .addField(`Evalued in`, `\`\`\`yaml\n${new Date()-message.createdTimestamp}ms\n\`\`\``, true)
-                            .addField(`Input`, `${input}`)
-                            .addField(`Output`, `${output}`);
+                            .addField("Type", `\`\`\`prolog\n${type}\n\`\`\``, true)
+                            .addField("Evalued in", `\`\`\`yaml\n${new Date()-message.createdTimestamp}ms\n\`\`\``, true)
+                            .addField("Input", `${input}`)
+                            .addField("Output", `${output}`);
                
                     } else {
           
                         return embed = e
-                            .addField(`Type`, `\`\`\`prolog\n${type}\n\`\`\``, true)
-                            .addField(`Evalued in`, `\`\`\`yaml\n${new Date()-message.createdTimestamp}ms\n\`\`\``, true)
-                            .addField(`Input`, input)
-                            .addField(`Output`, output);
+                            .addField("Type", `\`\`\`prolog\n${type}\n\`\`\``, true)
+                            .addField("Evalued in", `\`\`\`yaml\n${new Date()-message.createdTimestamp}ms\n\`\`\``, true)
+                            .addField("Input", input)
+                            .addField("Output", output);
                
                     }
           
