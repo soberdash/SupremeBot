@@ -122,7 +122,7 @@ module.exports = (client, message) =>  {
             if(Date.now() < userCooldown) {
                 let restCooldown = userCooldown - Date.now();
                 let seconds = Math.floor(restCooldown / 1000);
-                let cooldownMessage = lang.command.cooldown.replace("{command}", cmd.name).replace("{seconds}", seconds)
+                let cooldownMessage = lang.command.cooldown.replace("{command}", cmd.name).replace("{seconds}", seconds);
                 message.channel.send(emoji.static.info.string + cooldownMessage).then((msg) => {
                     msg.delete({timeout: restCooldown});
                 });
@@ -130,7 +130,7 @@ module.exports = (client, message) =>  {
             }
             else {
                 try {
-                    cmd.run(client, message, args, storage)
+                    cmd.run(client, message, args, storage);
                     client.cooldowns.set(`${message.author.id}.${cmd.name}`, endCooldown);
                 } catch(err) {
                     message.channel.send(errorEmbed);

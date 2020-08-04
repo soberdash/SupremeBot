@@ -62,7 +62,7 @@ module.exports = {
                     }, {
                         new: true
                     }).then(() => {
-                        message.channel.send(storage.emoji.animated.yes.string + "The ID has been added to the database successfully!")
+                        message.channel.send(storage.emoji.animated.yes.string + "The ID has been added to the database successfully!");
                     }).catch((err) => {
                         message.channel.send(storage.errorEmbed);
                         storage.Log.log(err);
@@ -102,7 +102,7 @@ module.exports = {
                     }, {
                         new: true
                     }).then(() => {
-                        message.channel.send(storage.emoji.animated.yes.string + "The ID has been removed to the database successfully!")
+                        message.channel.send(storage.emoji.animated.yes.string + "The ID has been removed to the database successfully!");
                     }).catch((err) => {
                         message.channel.send(storage.errorEmbed);
                         storage.Log.log(err);
@@ -114,8 +114,8 @@ module.exports = {
         if(args[0] === "list") {
 
             let find = await UserSchema.find();
-            let finalFind = find.filter(u => u.dev === true).map(u => `+ ${client.users.resolve(u.userID).tag} (${u.userID})`).join(" \n");
-            message.channel.send("```diff\n- SupremeBot Developer List\n \n" + finalFind + "\n \n--- Supreme Project ---```")
+            let finalFind = find.filter((u) => u.dev === true).map((u) => `+ ${client.users.resolve(u.userID).tag} (${u.userID})`).join(" \n");
+            message.channel.send("```diff\n- SupremeBot Developer List\n \n" + finalFind + "\n \n--- Supreme Project ---```");
         }
     }
 };

@@ -2,7 +2,7 @@ let arrayArgs = [
     "add",
     "remove",
     "list"
-]
+];
 
 module.exports = {
     name: "blacklist",
@@ -63,7 +63,7 @@ module.exports = {
                     }, {
                         new: true
                     }).then(() => {
-                        message.channel.send(storage.emoji.animated.yes.string + "The ID has been added to the database successfully!")
+                        message.channel.send(storage.emoji.animated.yes.string + "The ID has been added to the database successfully!");
                     }).catch((err) => {
                         message.channel.send(storage.errorEmbed);
                         storage.Log.log(err);
@@ -111,8 +111,8 @@ module.exports = {
         if(args[0] === "list") {
 
             let search = await storage.UserSchema.find();
-            let list = search.filter((u) => u.blacklisted === true).map(u => `+ ${client.users.resolve(u.userID).tag} (${u.userID})`).join(" \n");
-            message.channel.send("```diff\n- SupremeBot Blacklist\n \n" + list + "\n \n--- Supreme Project ---```")
+            let list = search.filter((u) => u.blacklisted === true).map((u) => `+ ${client.users.resolve(u.userID).tag} (${u.userID})`).join(" \n");
+            message.channel.send("```diff\n- SupremeBot Blacklist\n \n" + list + "\n \n--- Supreme Project ---```");
 
 
         }
