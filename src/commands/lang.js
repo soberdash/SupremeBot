@@ -21,7 +21,7 @@ module.exports = {
         const principalEmbed = new Discord.MessageEmbed()
             .setTitle(storage.lang.langembed.title)
             .setDescription(storage.lang.langembed.desc)
-            .addField(storage.lang.langembed.fieldtitles.avaible, `\`${arrayArgs.join(", ")}\``)
+            .addField(storage.lang.langembed.fieldtitles.available, `\`${arrayArgs.join(", ")}\``)
             .addField(storage.lang.langembed.fieldtitles.usage, `\`${storage.guild.prefix}lang <${arrayArgs.join("/")}>\``)
             .setColor("RANDOM")
             .setFooter(storage.lang.embed.footer)

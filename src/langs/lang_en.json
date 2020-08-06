@@ -14,7 +14,7 @@
     "title": "SupremeBot | Language",
     "desc": "In this section you can change the language that you will see in the bot. You can choose between the following available languages.",
     "fieldtitles": {
-      "avaible": "Avaibles",
+      "available": "Availables",
       "usage": "Usage"
     }
   },
